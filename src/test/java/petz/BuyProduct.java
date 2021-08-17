@@ -8,6 +8,7 @@ import cucumber.api.java.en.When;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pages.Home;
+import pages.Product;
 import pages.ProductList;
 
 import java.util.concurrent.TimeUnit;
@@ -20,6 +21,7 @@ public class BuyProduct {
 
     private Home homePage;
     private ProductList productListPage;
+    private Product productPage;
 
     @Before
     public void setUp() {
@@ -35,6 +37,7 @@ public class BuyProduct {
 
         homePage = new Home(driver);
         productListPage = new ProductList(driver);
+        productPage = new Product(driver);
     }
 
     @After
@@ -72,7 +75,8 @@ public class BuyProduct {
 
     // Normally, I should make a assertion in @Then
     @Then("^Show for \"([^\"]*)\" with the price \"([^\"]*)\"$")
-    public void show_for_with_the_price(String arg1, String arg2) {
-
+    public void show_for_with_the_price(String size, String price) {
+        assertThat(size).isEqualTo(productPage.sizeProduct());
+        assertThat(price).isEqualTo(productPage.valueProduct());
     }
 }
